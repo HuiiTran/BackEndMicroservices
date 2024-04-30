@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34408.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4DBEAF67-A791-47CC-9289-EAA50EF66E24}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DependenceInjections", "DependenceInjections", "{1242ED6F-D1E7-45DD-88D9-7B768833FAC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{3111203B-C479-4F7E-B84B-BFC3E64B5E57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicesCommon", "ServicesCommon\ServicesCommon.csproj", "{A9C09868-B765-4571-AF59-FE144EFE975A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9C09868-B765-4571-AF59-FE144EFE975A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9C09868-B765-4571-AF59-FE144EFE975A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9C09868-B765-4571-AF59-FE144EFE975A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9C09868-B765-4571-AF59-FE144EFE975A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A9C09868-B765-4571-AF59-FE144EFE975A} = {1242ED6F-D1E7-45DD-88D9-7B768833FAC2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9A182109-3F25-4ABC-AD78-4083ED3ED282}
+	EndGlobalSection
+EndGlobal
