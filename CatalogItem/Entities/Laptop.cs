@@ -6,11 +6,11 @@ namespace CatalogItem.Entities
     {
         public Guid Id { get; set; }
 
-        public string StoreID { get; set; }
+        public string? StoreID { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public decimal Price { get; set; }
 
@@ -18,6 +18,6 @@ namespace CatalogItem.Entities
 
         public Boolean isAvailable { get; set; }
 
-        public string Image {  get; set; }
+        public string? Image {  get; set; }
     }
 }

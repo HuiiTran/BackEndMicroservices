@@ -60,7 +60,8 @@ namespace CatalogItem.Controllers
             
             await laptopRepository.CreateAsync(laptop);
 
-            return CreatedAtAction(nameof(PostAsync), new {id = laptop.Id}, laptop);
+            //return CreatedAtAction(nameof(PostAsync), new {id = laptop.Id}, laptop);
+            return Ok(laptop);
         }
     }
 
