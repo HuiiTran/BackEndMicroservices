@@ -1,13 +1,17 @@
 using CatalogItem.Entities;
+using ServicesCommon.MassTransit;
 using ServicesCommon.MongoDB;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMongo()
-    .AddMongoRepository<Laptop>("laptops");
+
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddMongo()
+    .AddMongoRepository<Laptop>("laptops")
+    .AddMassTransitWithRabbitMq();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

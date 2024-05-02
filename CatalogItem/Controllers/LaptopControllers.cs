@@ -1,5 +1,7 @@
 ﻿using CatalogItem.Dtos;
 using CatalogItem.Entities;
+using CatalogLaptopContract;
+using MassTransit;
 using MassTransit.Initializers;
 using Microsoft.AspNetCore.Mvc;
 using ServicesCommon;
@@ -12,11 +14,13 @@ namespace CatalogItem.Controllers
     {
         private readonly IRepository<Laptop> laptopRepository;
 
+        private readonly IPublishEndpoint publishEndpoint;
 
-        public LaptopControllers(IRepository<Laptop> laptopRepository)
+        public LaptopControllers(IRepository<Laptop> laptopRepository, IPublishEndpoint publishEndpoint)
         {
             this.laptopRepository = laptopRepository;
-        }
+            this.publishEndpoint = publishEndpoint;
+    }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LaptopDto>>> GetAsync()
@@ -59,6 +63,8 @@ namespace CatalogItem.Controllers
             }
             
             await laptopRepository.CreateAsync(laptop);
+
+            await publishEndpoint.Publish(new CatalogLaptopCreated(laptop.Id, laptop.StoreID, laptop.Name, laptop.Description, laptop.Price, laptop.Quantity, laptop.isAvailable, laptop.Image));
 
             //return CreatedAtAction(nameof(PostAsync), new {id = laptop.Id}, laptop);
             return Ok(laptop);

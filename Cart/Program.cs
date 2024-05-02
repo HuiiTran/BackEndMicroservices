@@ -1,5 +1,14 @@
+using Cart.Entities;
+using ServicesCommon.MassTransit;
+using ServicesCommon.MongoDB;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddMongo()
+    .AddMongoRepository<CartItem>("Cart")
+    .AddMongoRepository<CatalogItem>("CatalogItem")
+    .AddMassTransitWithRabbitMq();
 // Add services to the container.
 
 builder.Services.AddControllers();
