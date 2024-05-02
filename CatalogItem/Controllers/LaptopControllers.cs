@@ -69,6 +69,50 @@ namespace CatalogItem.Controllers
             //return CreatedAtAction(nameof(PostAsync), new {id = laptop.Id}, laptop);
             return Ok(laptop);
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAsync(Guid id, [FromForm] UpdateLaptopDto updateLaptopDto)
+        {
+            var existingLatop = await laptopRepository.GetAsync(id);
+
+            if (existingLatop == null)
+            {
+                return NotFound();
+            }
+
+            existingLatop.StoreID = updateLaptopDto.StoreID;
+            existingLatop.Name = updateLaptopDto.Name;
+            existingLatop.Description = updateLaptopDto.Description;
+            existingLatop.Price = updateLaptopDto.Price;
+            existingLatop.Quantity = updateLaptopDto.Quantity;
+            existingLatop.isAvailable = updateLaptopDto.isAvailable;
+            if (updateLaptopDto.Image != null)
+            {
+                MemoryStream memoryStream = new MemoryStream();
+                updateLaptopDto.Image.OpenReadStream().CopyTo(memoryStream);
+                existingLatop.Image = Convert.ToBase64String(memoryStream.ToArray());
+            }
+            await laptopRepository.UpdateAsync(existingLatop);
+
+            await publishEndpoint.Publish(new CatalogLaptopUpdated(existingLatop.Id, existingLatop.StoreID,existingLatop.Name, existingLatop.Description,existingLatop.Price,existingLatop.Quantity,existingLatop.isAvailable ,existingLatop.Image));
+            return NoContent();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAysnc(Guid id)
+        {
+            var laptop = await laptopRepository.GetAsync(id);
+
+            if (laptop == null)
+            {
+                return NotFound();
+            }
+
+            await laptopRepository.RemoveAsync(laptop.Id);
+
+            await publishEndpoint.Publish(new CatalogItemDeleted(laptop.Id));
+
+            return NoContent();
+        }
     }
 
     
