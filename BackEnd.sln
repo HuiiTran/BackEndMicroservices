@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DependenceInjections", "Dep
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{3111203B-C479-4F7E-B84B-BFC3E64B5E57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicesCommon", "ServicesCommon\ServicesCommon.csproj", "{A9C09868-B765-4571-AF59-FE144EFE975A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicesCommon", "ServicesCommon\ServicesCommon.csproj", "{A9C09868-B765-4571-AF59-FE144EFE975A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogItem", "CatalogItem\CatalogItem.csproj", "{77342B83-694F-4E15-97EE-6BC26CE7FE0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,12 +23,17 @@ Global
 		{A9C09868-B765-4571-AF59-FE144EFE975A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9C09868-B765-4571-AF59-FE144EFE975A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9C09868-B765-4571-AF59-FE144EFE975A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77342B83-694F-4E15-97EE-6BC26CE7FE0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77342B83-694F-4E15-97EE-6BC26CE7FE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77342B83-694F-4E15-97EE-6BC26CE7FE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77342B83-694F-4E15-97EE-6BC26CE7FE0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A9C09868-B765-4571-AF59-FE144EFE975A} = {1242ED6F-D1E7-45DD-88D9-7B768833FAC2}
+		{77342B83-694F-4E15-97EE-6BC26CE7FE0D} = {4DBEAF67-A791-47CC-9289-EAA50EF66E24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A182109-3F25-4ABC-AD78-4083ED3ED282}
