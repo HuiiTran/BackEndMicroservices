@@ -31,6 +31,7 @@ namespace Cart.CatalogConsumers
                 Description = message.Description,
                 Price = message.Price,
                 Image = message.Image,
+                Quantity = message.Quantity,
             };
 
             await repository.CreateAsync(laptop);

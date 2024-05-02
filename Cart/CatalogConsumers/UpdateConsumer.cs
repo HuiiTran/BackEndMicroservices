@@ -28,6 +28,7 @@ namespace Cart.CatalogConsumers
                     Description = message.Description,
                     Price = message.Price,
                     Image = message.Image,
+                    Quantity = message.Quantity,
                 };
                 await _catalogItemRepository.CreateAsync(laptop);
             }
@@ -37,6 +38,7 @@ namespace Cart.CatalogConsumers
                 laptop.Description = message.Description;
                 laptop.Price = message.Price;
                 laptop.Image = message.Image;
+                laptop.Quantity = message.Quantity;
 
                 await _catalogItemRepository.UpdateAsync(laptop);
             }

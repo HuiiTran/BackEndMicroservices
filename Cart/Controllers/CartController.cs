@@ -45,20 +45,57 @@ namespace Cart.Controllers
         {
             var cartItem = await _cartitemsRepository.GetAsync(item =>
                 item.UserId == grantItemDto.UserId && item.CatalogLaptopId == grantItemDto.CatalogLaptopId);
-            if (cartItem == null)
+            var catalogItemEntites = await _catalogItemsRepository.GetAsync(grantItemDto.CatalogLaptopId);
+            if (catalogItemEntites.Quantity >= grantItemDto.Quantity )
             {
-                cartItem = new CartItem
+                if (cartItem == null)
                 {
-                    CatalogLaptopId = grantItemDto.CatalogLaptopId,
-                    UserId = grantItemDto.UserId,
-                    Quantity = grantItemDto.Quantity,
-                };
-                await _cartitemsRepository.CreateAsync(cartItem);
+                    cartItem = new CartItem
+                    {
+                        CatalogLaptopId = grantItemDto.CatalogLaptopId,
+                        UserId = grantItemDto.UserId,
+                        Quantity = grantItemDto.Quantity,
+                    };
+                    await _cartitemsRepository.CreateAsync(cartItem);
+                }
+                else
+                {
+                    if (catalogItemEntites.Quantity >= cartItem.Quantity + grantItemDto.Quantity)
+                    {
+                        cartItem.Quantity += grantItemDto.Quantity;
+                        await _cartitemsRepository.UpdateAsync(cartItem);
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }
             }
             else
             {
-                cartItem.Quantity += grantItemDto.Quantity;
+                return BadRequest();
+            }
+            return Ok();
+        }
+        [HttpDelete]
+        public async Task<ActionResult> DeleteAsync(GrantItemDto grantItemDto)
+        {
+            var cartItem = await _cartitemsRepository.GetAsync(item =>
+                item.UserId == grantItemDto.UserId && item.CatalogLaptopId == grantItemDto.CatalogLaptopId);
+
+            if(cartItem == null)
+            {
+                return NotFound();
+            }
+            else if(cartItem.Quantity > 0)
+            {
+                cartItem.Quantity -= grantItemDto.Quantity;
                 await _cartitemsRepository.UpdateAsync(cartItem);
+            }
+
+            if (cartItem.Quantity <= 0)
+            {
+                await _cartitemsRepository.RemoveAsync(cartItem.Id);
             }
             return Ok();
         }
