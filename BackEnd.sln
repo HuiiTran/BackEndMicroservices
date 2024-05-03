@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicesCommon", "ServicesC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogItem", "CatalogItem\CatalogItem.csproj", "{77342B83-694F-4E15-97EE-6BC26CE7FE0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogLaptopContract", "CatalogLaptopContract\CatalogLaptopContract.csproj", "{C9540ACD-FF46-40CC-9D00-C09FA6F61EF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogLaptopContract", "CatalogLaptopContract\CatalogLaptopContract.csproj", "{C9540ACD-FF46-40CC-9D00-C09FA6F61EF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cart", "Cart\Cart.csproj", "{9F263924-F19E-46C6-813C-3041857A94DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cart", "Cart\Cart.csproj", "{9F263924-F19E-46C6-813C-3041857A94DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bill", "Bill\Bill.csproj", "{7073445A-5B2A-4E92-8A86-A7ED84215E3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9F263924-F19E-46C6-813C-3041857A94DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F263924-F19E-46C6-813C-3041857A94DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F263924-F19E-46C6-813C-3041857A94DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7073445A-5B2A-4E92-8A86-A7ED84215E3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7073445A-5B2A-4E92-8A86-A7ED84215E3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7073445A-5B2A-4E92-8A86-A7ED84215E3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7073445A-5B2A-4E92-8A86-A7ED84215E3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{77342B83-694F-4E15-97EE-6BC26CE7FE0D} = {4DBEAF67-A791-47CC-9289-EAA50EF66E24}
 		{C9540ACD-FF46-40CC-9D00-C09FA6F61EF3} = {3111203B-C479-4F7E-B84B-BFC3E64B5E57}
 		{9F263924-F19E-46C6-813C-3041857A94DD} = {4DBEAF67-A791-47CC-9289-EAA50EF66E24}
+		{7073445A-5B2A-4E92-8A86-A7ED84215E3F} = {4DBEAF67-A791-47CC-9289-EAA50EF66E24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A182109-3F25-4ABC-AD78-4083ED3ED282}

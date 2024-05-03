@@ -1,0 +1,6 @@
+@Bill_HostAddress = http://localhost:5101
+
+GET {{Bill_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
