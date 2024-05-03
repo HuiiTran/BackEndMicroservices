@@ -28,10 +28,12 @@ namespace Bill.Controllers
 
             var billEntites = await BillRepository.GetAllAsync(bill => bill.UserId == userId);
             var itemIds = billEntites.Select(itemlist => itemlist.CatalogItemId);
-
             var eachItems = itemIds.FirstOrDefault();
 
-            var catalogItemEntites = await CatalogItemRepository.GetAllAsync(item => eachItems.Contains(item.Id));
+            var quantities = billEntites.Select(quantity => quantity.Quantity);
+            var eachQuantities = quantities.FirstOrDefault();
+
+            var catalogItemEntites = await CatalogItemRepository.GetAllAsync(filter: item => eachItems.Contains(item.Id));
 
             
             var billDto = billEntites.Select(billItem =>
@@ -42,12 +44,12 @@ namespace Bill.Controllers
                 {
                     var catalogItem = catalogItemEntites.Single(predicate: catalogItem => catalogItem.Id == billItem.CatalogItemId[i]);
                     catalogItems.Add(catalogItem);
-                    totalPrice += catalogItem.Price;
+                    totalPrice += catalogItem.Price * eachQuantities[i];
                 }
                 
                 
 
-                return billItem.AsDto(totalPrice, catalogItems);
+                return billItem.AsDto(totalPrice, catalogItems, eachQuantities);
             });
             return Ok(billDto);
         }
@@ -64,6 +66,7 @@ namespace Bill.Controllers
                 billItems = new Bills
                 {
                     CatalogItemId = grantItemDto.CatalogItemId,
+                    Quantity = grantItemDto.Quantity,
                 };
                 await BillRepository.CreateAsync(billItems);
             }

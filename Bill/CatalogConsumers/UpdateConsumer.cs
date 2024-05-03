@@ -27,7 +27,7 @@ namespace Cart.CatalogConsumers
                     Name = message.Name,
                     Price = message.Price,
                     Image = message.Image,
-                    Quantity = message.Quantity,
+
                 };
                 await _catalogItemRepository.CreateAsync(laptop);
             }
@@ -36,7 +36,7 @@ namespace Cart.CatalogConsumers
                 laptop.Name = message.Name;
                 laptop.Price = message.Price;
                 laptop.Image = message.Image;
-                laptop.Quantity = message.Quantity;
+
 
                 await _catalogItemRepository.UpdateAsync(laptop);
             }

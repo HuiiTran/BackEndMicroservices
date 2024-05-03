@@ -10,6 +10,8 @@ namespace Bill.Entities
 
         public List<Guid>? CatalogItemId { get; set; }
 
+        public List<int> Quantity { get; set; }
+
         public decimal TotalPrice { get; set; }
     }
 }
