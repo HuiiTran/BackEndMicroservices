@@ -35,7 +35,7 @@ namespace Bill.Controllers
 
             var catalogItemEntites = await CatalogItemRepository.GetAllAsync(filter: item => eachItems.Contains(item.Id));
 
-            
+
             var billDto = billEntites.Select(billItem =>
             {
                 List<CatalogItem> catalogItems = new List<CatalogItem>();
@@ -46,8 +46,8 @@ namespace Bill.Controllers
                     catalogItems.Add(catalogItem);
                     totalPrice += catalogItem.Price * eachQuantities[i];
                 }
-                
-                
+
+
 
                 return billItem.AsDto(totalPrice, catalogItems, eachQuantities);
             });
@@ -61,18 +61,84 @@ namespace Bill.Controllers
             var billItems = await BillRepository.GetAsync(item =>
                 item.UserId == grantItemDto.UserId && item.CatalogItemId == grantItemDto.CatalogItemId);
 
-            if(billItems == null)
+            if( grantItemDto.Quantity == null || grantItemDto.Quantity.Count != grantItemDto.CatalogItemId.Count)
             {
-                billItems = new Bills
+                return BadRequest();
+            }
+            if (billItems == null )
+            {
+                for(int i = 0; i < grantItemDto.Quantity.Count; i++)
                 {
-                    CatalogItemId = grantItemDto.CatalogItemId,
-                    Quantity = grantItemDto.Quantity,
-                };
-                await BillRepository.CreateAsync(billItems);
+                    if (grantItemDto.Quantity[i] ==0)
+                    {
+                        return BadRequest();
+                    }
+                }
+                {
+                    billItems = new Bills
+                    {
+                        CatalogItemId = grantItemDto.CatalogItemId,
+                        Quantity = grantItemDto.Quantity,
+                    };
+
+                    for (int i = 0; i < billItems.CatalogItemId.Count(); i++)
+                    {
+                        var catalogItemEntites = await CatalogItemRepository.GetAsync(billItems.CatalogItemId[i]);
+                        billItems.TotalPrice += catalogItemEntites.Price * billItems.Quantity[i];
+                    }
+                    await BillRepository.CreateAsync(billItems);
+                }
             }
 
 
             return Ok();
+        }
+       /* [HttpPost("{CatalogItemId, Quantity}")]
+        public async Task<ActionResult> PostOneItem(Guid CatalogItemId, int Quantity)
+        {
+            return Ok();
+        }*/
+
+        [HttpPut("{billId}")]
+        public async Task<IActionResult> PutAsync(Guid billId, UpdateBillDto updateBillDto)
+        {
+            var existingBill = await BillRepository.GetAsync(billId);
+
+            if(existingBill == null)
+            {
+                return NotFound();
+            }
+
+            existingBill.CatalogItemId = updateBillDto.CatalogItemId;
+            existingBill.Quantity = updateBillDto.Quantity;
+
+            for (int i = 0; i < existingBill.CatalogItemId.Count(); i++)
+            {
+                var catalogItemEntites = await CatalogItemRepository.GetAsync(existingBill.CatalogItemId[i]);
+                existingBill.TotalPrice += catalogItemEntites.Price * existingBill.Quantity[i];
+            }
+
+            await BillRepository.UpdateAsync(existingBill);
+
+            return NoContent();
+        }
+        
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteAsync(Guid billId)
+        {
+            var Bill = await BillRepository.GetAsync(billId);
+
+            if(Bill == null)
+            {
+                return NotFound();
+            }
+
+            await BillRepository.RemoveAsync(Bill.Id);
+
+            return NoContent();
+            
+
         }
     }
 }
