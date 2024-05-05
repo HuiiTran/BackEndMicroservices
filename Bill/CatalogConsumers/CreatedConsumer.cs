@@ -29,7 +29,7 @@ namespace Cart.CatalogConsumers
                 Id = message.Id,
                 Name = message.Name,
                 Price = message.Price,
-                Image = message.Image,
+                Image = message.Image[0],
                 Quantity = message.Quantity,
             };
 

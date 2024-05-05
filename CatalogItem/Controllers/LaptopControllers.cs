@@ -44,6 +44,8 @@ namespace CatalogItem.Controllers
         [HttpPost]
         public async Task<ActionResult<LaptopDto>> PostAsync([FromForm]CreateLaptopDto createLaptopDto)
         {
+            List<string> tempImage = new List<string>();
+
             var laptop = new Laptop();
             laptop.StoreID = createLaptopDto.StoreID;
             laptop.Name = createLaptopDto.Name;
@@ -51,16 +53,30 @@ namespace CatalogItem.Controllers
             laptop.Price = createLaptopDto.Price;
             laptop.Quantity = createLaptopDto.Quantity;
             laptop.isAvailable = createLaptopDto.isAvailable;
-            if (createLaptopDto.Image != null)
+
+            foreach(var image in createLaptopDto.Image)
             {
-                MemoryStream memoryStream = new MemoryStream();
-                createLaptopDto.Image.OpenReadStream().CopyTo(memoryStream);
-                laptop.Image = Convert.ToBase64String(memoryStream.ToArray());
+                if(image != null)
+                {
+                    MemoryStream memoryStream = new MemoryStream();
+                    image.OpenReadStream().CopyTo(memoryStream);
+                    tempImage.Add(Convert.ToBase64String(memoryStream.ToArray()));
+                }
             }
-            else
+            /*for(int i = 0; i < createLaptopDto.Image.Count(); i++)
             {
-                laptop.Image = "";
-            }
+                if (createLaptopDto.Image[i] != null)
+                {
+                    MemoryStream memoryStream = new MemoryStream();
+                    createLaptopDto.Image[i].OpenReadStream().CopyTo(memoryStream);
+                    tempImage[i] = Convert.ToBase64String(memoryStream.ToArray());
+                }
+                else
+                {
+                    tempImage[i] = "";
+                }
+            }*/
+            laptop.Image = tempImage;
             
             await laptopRepository.CreateAsync(laptop);
 
@@ -85,11 +101,18 @@ namespace CatalogItem.Controllers
             existingLatop.Price = updateLaptopDto.Price;
             existingLatop.Quantity = updateLaptopDto.Quantity;
             existingLatop.isAvailable = updateLaptopDto.isAvailable;
-            if (updateLaptopDto.Image != null)
+            for (int i = 0; i < updateLaptopDto.Image.Count; i++)
             {
-                MemoryStream memoryStream = new MemoryStream();
-                updateLaptopDto.Image.OpenReadStream().CopyTo(memoryStream);
-                existingLatop.Image = Convert.ToBase64String(memoryStream.ToArray());
+                if (updateLaptopDto.Image[i] != null)
+                {
+                    MemoryStream memoryStream = new MemoryStream();
+                    updateLaptopDto.Image[i].OpenReadStream().CopyTo(memoryStream);
+                    existingLatop.Image[i] = Convert.ToBase64String(memoryStream.ToArray());
+                }
+                else
+                {
+                    existingLatop.Image[i] = "";
+                }
             }
             await laptopRepository.UpdateAsync(existingLatop);
 
@@ -109,7 +132,7 @@ namespace CatalogItem.Controllers
 
             await laptopRepository.RemoveAsync(laptop.Id);
 
-            await publishEndpoint.Publish(new CatalogItemDeleted(laptop.Id));
+            await publishEndpoint.Publish(new CataloglaptopDeleted(laptop.Id));
 
             return NoContent();
         }

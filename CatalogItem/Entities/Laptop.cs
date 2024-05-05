@@ -18,6 +18,6 @@ namespace CatalogItem.Entities
 
         public Boolean isAvailable { get; set; }
 
-        public string? Image {  get; set; }
+        public List<string> Image {  get; set; } = new List<string>();
     }
 }

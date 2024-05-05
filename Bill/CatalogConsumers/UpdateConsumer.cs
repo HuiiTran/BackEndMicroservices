@@ -26,7 +26,7 @@ namespace Cart.CatalogConsumers
                     Id = message.Id,
                     Name = message.Name,
                     Price = message.Price,
-                    Image = message.Image,
+                    Image = message.Image[0],
                     Quantity = message.Quantity,
 
                 };
@@ -36,7 +36,7 @@ namespace Cart.CatalogConsumers
             {
                 laptop.Name = message.Name;
                 laptop.Price = message.Price;
-                laptop.Image = message.Image;
+                laptop.Image = message.Image[0];
                 laptop.Quantity = message.Quantity;
 
 

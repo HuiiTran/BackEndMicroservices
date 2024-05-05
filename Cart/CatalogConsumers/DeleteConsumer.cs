@@ -5,7 +5,7 @@ using ServicesCommon;
 
 namespace Cart.CatalogConsumers
 {
-    public class DeleteConsumer : IConsumer<CatalogItemDeleted>
+    public class DeleteConsumer : IConsumer<CataloglaptopDeleted>
     {
         private readonly IRepository<CatalogItem> repository;
 
@@ -13,7 +13,7 @@ namespace Cart.CatalogConsumers
         {
             this.repository = repository;
         }
-        public async Task Consume(ConsumeContext<CatalogItemDeleted> context)
+        public async Task Consume(ConsumeContext<CataloglaptopDeleted> context)
         {
             var message = context.Message;
 

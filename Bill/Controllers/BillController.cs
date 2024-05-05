@@ -77,6 +77,7 @@ namespace Bill.Controllers
                 {
                     billItems = new Bills
                     {
+                        UserId = grantItemDto.UserId,
                         CatalogItemId = grantItemDto.CatalogItemId,
                         Quantity = grantItemDto.Quantity,
                     };
@@ -93,12 +94,13 @@ namespace Bill.Controllers
 
             return Ok();
         }
-       /* [HttpPost("{CatalogItemId, Quantity}")]
+        /*[HttpPut("{CatalogItemId, Quantity}")]
         public async Task<ActionResult> PostOneItem(Guid CatalogItemId, int Quantity)
         {
-            return Ok();
-        }*/
 
+            return Ok();
+        }
+*/
         [HttpPut("{billId}")]
         public async Task<IActionResult> PutAsync(Guid billId, UpdateBillDto updateBillDto)
         {
@@ -109,6 +111,7 @@ namespace Bill.Controllers
                 return NotFound();
             }
 
+            
             existingBill.CatalogItemId = updateBillDto.CatalogItemId;
             existingBill.Quantity = updateBillDto.Quantity;
 

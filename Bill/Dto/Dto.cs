@@ -6,5 +6,5 @@ namespace Bill.Dto
     public record BillItemDto(List<CatalogItem> catalogItems, List<int> Quantity, decimal TotalPrice);
     public record CatalogItemDto(Guid Id, string Name, decimal Price, string Image);
     public record UpdateBillDto(List<Guid> CatalogItemId, List<int> Quantity);
-    
+    /*public record AddOneItem(Guid Id);*/
 }
