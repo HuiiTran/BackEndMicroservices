@@ -2,7 +2,7 @@
 
 namespace User.Entities
 {
-    public class User : IEntity
+    public class Users : IEntity
     {
         public Guid Id { get; set; }
 
