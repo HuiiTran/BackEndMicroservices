@@ -80,6 +80,7 @@ namespace Bill.Controllers
                         UserId = grantItemDto.UserId,
                         CatalogItemId = grantItemDto.CatalogItemId,
                         Quantity = grantItemDto.Quantity,
+                        CreatedDate = DateTimeOffset.Now,
                     };
 
                     for (int i = 0; i < billItems.CatalogItemId.Count(); i++)
@@ -120,7 +121,7 @@ namespace Bill.Controllers
                 var catalogItemEntites = await CatalogItemRepository.GetAsync(existingBill.CatalogItemId[i]);
                 existingBill.TotalPrice += catalogItemEntites.Price * existingBill.Quantity[i];
             }
-
+            existingBill.CreatedDate = DateTimeOffset.Now;
             await BillRepository.UpdateAsync(existingBill);
 
             return NoContent();

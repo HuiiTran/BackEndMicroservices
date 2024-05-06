@@ -13,5 +13,7 @@ namespace Bill.Entities
         public List<int> Quantity { get; set; }
 
         public decimal TotalPrice { get; set; }
+
+        public DateTimeOffset CreatedDate { get; set; }
     }
 }

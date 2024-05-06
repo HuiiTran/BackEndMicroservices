@@ -7,7 +7,7 @@ namespace Bill
     {
         public static BillItemDto AsDto(this Bills bills, decimal TotalPrice, List<CatalogItem> catalogItems, List<int> Quantity)
         {
-            return new BillItemDto( catalogItems, Quantity, TotalPrice);
+            return new BillItemDto( catalogItems, Quantity, TotalPrice, bills.CreatedDate);
         }
     }
 }

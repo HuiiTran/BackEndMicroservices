@@ -63,19 +63,7 @@ namespace CatalogItem.Controllers
                     tempImage.Add(Convert.ToBase64String(memoryStream.ToArray()));
                 }
             }
-            /*for(int i = 0; i < createLaptopDto.Image.Count(); i++)
-            {
-                if (createLaptopDto.Image[i] != null)
-                {
-                    MemoryStream memoryStream = new MemoryStream();
-                    createLaptopDto.Image[i].OpenReadStream().CopyTo(memoryStream);
-                    tempImage[i] = Convert.ToBase64String(memoryStream.ToArray());
-                }
-                else
-                {
-                    tempImage[i] = "";
-                }
-            }*/
+            
             laptop.Image = tempImage;
             
             await laptopRepository.CreateAsync(laptop);
@@ -89,7 +77,7 @@ namespace CatalogItem.Controllers
         public async Task<IActionResult> PutAsync(Guid id, [FromForm] UpdateLaptopDto updateLaptopDto)
         {
             var existingLatop = await laptopRepository.GetAsync(id);
-
+            List<string> tempImage = new List<string>();
             if (existingLatop == null)
             {
                 return NotFound();
@@ -101,19 +89,16 @@ namespace CatalogItem.Controllers
             existingLatop.Price = updateLaptopDto.Price;
             existingLatop.Quantity = updateLaptopDto.Quantity;
             existingLatop.isAvailable = updateLaptopDto.isAvailable;
-            for (int i = 0; i < updateLaptopDto.Image.Count; i++)
+            foreach (var image in updateLaptopDto.Image)
             {
-                if (updateLaptopDto.Image[i] != null)
+                if (image != null)
                 {
                     MemoryStream memoryStream = new MemoryStream();
-                    updateLaptopDto.Image[i].OpenReadStream().CopyTo(memoryStream);
-                    existingLatop.Image[i] = Convert.ToBase64String(memoryStream.ToArray());
-                }
-                else
-                {
-                    existingLatop.Image[i] = "";
+                    image.OpenReadStream().CopyTo(memoryStream);
+                    tempImage.Add(Convert.ToBase64String(memoryStream.ToArray()));
                 }
             }
+            existingLatop.Image = tempImage;
             await laptopRepository.UpdateAsync(existingLatop);
 
             await publishEndpoint.Publish(new CatalogLaptopUpdated(existingLatop.Id, existingLatop.StoreID,existingLatop.Name, existingLatop.Description,existingLatop.Price,existingLatop.Quantity,existingLatop.isAvailable ,existingLatop.Image));
