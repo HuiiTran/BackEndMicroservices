@@ -6,7 +6,7 @@ namespace User
     {
         public static UserDto AsDto(this Users user)
         {
-            return new UserDto(user.Id, user.UserName, user.PassWord, user.Email, user.Address, user.Name, user.PhoneNumber);
+            return new UserDto(user.Id, user.UserName, user.PassWord, user.Email, user.Address, user.Name, user.PhoneNumber, user.Image);
         }
     }
 }

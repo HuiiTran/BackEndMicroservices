@@ -40,8 +40,11 @@ namespace User.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserDto>> PostAsync(CreateUserDto createUserDto)
+        public async Task<ActionResult<UserDto>> PostAsync( [FromForm]CreateUserDto createUserDto)
         {
+
+            
+
             var user = new Users
             {
                 UserName = createUserDto.UserName,
@@ -51,14 +54,23 @@ namespace User.Controllers
                 Name = createUserDto.Name,
                 PhoneNumber = createUserDto.PhoneNumber,
             };
-
+            if (createUserDto.Image != null)
+            {
+                MemoryStream memoryStream = new MemoryStream();
+                createUserDto.Image.OpenReadStream().CopyTo(memoryStream);
+                user.Image = Convert.ToBase64String(memoryStream.ToArray());
+            }
+            else
+            {
+                user.Image = " ";
+            }
             await UserRepository.CreateAsync(user);
 
             return Ok(user);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(Guid id, UpdateUserDto updateUserDto)
+        public async Task<IActionResult> PutAsync(Guid id,[FromForm] UpdateUserDto updateUserDto)
         {
             var existingUser = await UserRepository.GetAsync(id);
 
@@ -73,6 +85,17 @@ namespace User.Controllers
             existingUser.Address = updateUserDto.Address;
             existingUser.Name = updateUserDto.Name;
             existingUser.PhoneNumber = updateUserDto.PhoneNumber;
+            if (updateUserDto.Image != null)
+            {
+                MemoryStream memoryStream = new MemoryStream();
+                updateUserDto.Image.OpenReadStream().CopyTo(memoryStream);
+                existingUser.Image = Convert.ToBase64String(memoryStream.ToArray());
+            }
+            else
+            {
+                existingUser.Image = " ";
+            }
+
 
             await UserRepository.UpdateAsync(existingUser);
 
