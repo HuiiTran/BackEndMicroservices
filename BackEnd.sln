@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User", "User\User.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coupons", "Coupon\Coupons.csproj", "{BBA02B56-912C-4C85-9C8E-5141EE19BE0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaffService", "StaffService\StaffService.csproj", "{FB31CF58-3DCD-4EF3-B202-BFC4C83CDB11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{BBA02B56-912C-4C85-9C8E-5141EE19BE0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBA02B56-912C-4C85-9C8E-5141EE19BE0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBA02B56-912C-4C85-9C8E-5141EE19BE0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB31CF58-3DCD-4EF3-B202-BFC4C83CDB11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB31CF58-3DCD-4EF3-B202-BFC4C83CDB11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB31CF58-3DCD-4EF3-B202-BFC4C83CDB11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB31CF58-3DCD-4EF3-B202-BFC4C83CDB11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{7073445A-5B2A-4E92-8A86-A7ED84215E3F} = {4DBEAF67-A791-47CC-9289-EAA50EF66E24}
 		{81EE19E4-8B93-4C06-8AAD-B6161ED62DE8} = {4DBEAF67-A791-47CC-9289-EAA50EF66E24}
 		{BBA02B56-912C-4C85-9C8E-5141EE19BE0F} = {4DBEAF67-A791-47CC-9289-EAA50EF66E24}
+		{FB31CF58-3DCD-4EF3-B202-BFC4C83CDB11} = {4DBEAF67-A791-47CC-9289-EAA50EF66E24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A182109-3F25-4ABC-AD78-4083ED3ED282}
