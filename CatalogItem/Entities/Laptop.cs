@@ -8,6 +8,8 @@ namespace CatalogItem.Entities
 
         public string? StoreID { get; set; }
 
+        public string Classify {  get; set; }
+
         public string? Name { get; set; }
 
         public string? Description { get; set; }

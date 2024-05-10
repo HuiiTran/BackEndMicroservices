@@ -53,6 +53,7 @@ namespace CatalogItem.Controllers
             laptop.Price = createLaptopDto.Price;
             laptop.Quantity = createLaptopDto.Quantity;
             laptop.isAvailable = createLaptopDto.isAvailable;
+            laptop.Classify = createLaptopDto.Classify;
 
             foreach(var image in createLaptopDto.Image)
             {
@@ -89,6 +90,7 @@ namespace CatalogItem.Controllers
             existingLatop.Price = updateLaptopDto.Price;
             existingLatop.Quantity = updateLaptopDto.Quantity;
             existingLatop.isAvailable = updateLaptopDto.isAvailable;
+            existingLatop.Classify = updateLaptopDto.Classify;
             foreach (var image in updateLaptopDto.Image)
             {
                 if (image != null)
