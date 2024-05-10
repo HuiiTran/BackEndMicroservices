@@ -19,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cart", "Cart\Cart.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bill", "Bill\Bill.csproj", "{7073445A-5B2A-4E92-8A86-A7ED84215E3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User", "User\User.csproj", "{81EE19E4-8B93-4C06-8AAD-B6161ED62DE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User", "User\User.csproj", "{81EE19E4-8B93-4C06-8AAD-B6161ED62DE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coupon", "Coupon\Coupon.csproj", "{BBA02B56-912C-4C85-9C8E-5141EE19BE0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coupons", "Coupon\Coupons.csproj", "{BBA02B56-912C-4C85-9C8E-5141EE19BE0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

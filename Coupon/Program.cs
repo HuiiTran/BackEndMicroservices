@@ -1,3 +1,6 @@
+
+using Coupons.Entities;
+using ServicesCommon.MassTransit;
 using ServicesCommon.MongoDB;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddMongo()
+    .AddMongoRepository<Coupon>("Coupon")
+    .AddMassTransitWithRabbitMq();
 
 /*builder.Services.AddMongo()
     .AddMongoRepository<>*/
