@@ -14,8 +14,8 @@ namespace Coupons.Entities
 
         public int DiscountAmount { get; set; }
 
-        public DateTime? StartedDate { get; set; }
+        public DateTimeOffset StartedDate { get; set; }
 
-        public DateTime? ExpiredDate { get; set; }
+        public DateTimeOffset ExpiredDate { get; set; }
     }
 }
