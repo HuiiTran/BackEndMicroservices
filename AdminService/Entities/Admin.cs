@@ -1,8 +1,8 @@
 ﻿using ServicesCommon;
 
-namespace StaffService.Entities
+namespace AdminService.Entities
 {
-    public class Staff : IEntity
+    public class Admin : IEntity
     {
         public Guid Id { get; set; }
 
@@ -21,8 +21,5 @@ namespace StaffService.Entities
         public string? Image { get; set; }
 
         public decimal? Salary { get; set; }
-
-
-
     }
 }
