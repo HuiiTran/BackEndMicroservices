@@ -20,7 +20,9 @@ namespace StaffService.Entities
 
         public string? Image { get; set; }
 
-        public decimal? Salary { get; set; }
+        public decimal Salary { get; set; } = 0;
+
+        public string Role = "Staff";
 
 
 
