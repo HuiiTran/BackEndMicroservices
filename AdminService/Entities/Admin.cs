@@ -12,14 +12,12 @@ namespace AdminService.Entities
 
         public required string Email { get; set; }
 
-        public string? Address { get; set; }
-
         public string? Name { get; set; }
 
         public required string PhoneNumber { get; set; }
 
         public string? Image { get; set; }
 
-        public decimal? Salary { get; set; }
+        public string Role = "Admin";
     }
 }

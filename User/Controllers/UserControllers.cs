@@ -42,9 +42,6 @@ namespace User.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> PostAsync( [FromForm]CreateUserDto createUserDto)
         {
-
-            
-
             var user = new Users
             {
                 UserName = createUserDto.UserName,

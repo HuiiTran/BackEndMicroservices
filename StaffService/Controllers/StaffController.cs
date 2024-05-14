@@ -71,7 +71,7 @@ namespace StaffService.Controllers
         {
             var existingStaff = await staffRepository.GetAsync(id);
 
-            if (existingStaff != null)
+            if (existingStaff == null)
             {
                 return NotFound();
             }
