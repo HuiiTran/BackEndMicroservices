@@ -20,5 +20,6 @@ namespace User.Entities
 
         public string? Image {  get; set; }
 
+        public string Role = "User";
     }
 }
