@@ -5,9 +5,9 @@ namespace Bill
 {
     public static class Extension
     {
-        public static BillItemDto AsDto(this Bills bills, decimal TotalPrice, List<CatalogItem> catalogItems, List<int> Quantity)
+        public static BillItemDto AsDto(this Bills bills, List<CatalogItem> catalogItems)
         {
-            return new BillItemDto( catalogItems, Quantity, TotalPrice, bills.CreatedDate);
+            return new BillItemDto( catalogItems, bills.Quantity, bills.TotalPrice, bills.CreatedDate);
         }
     }
 }

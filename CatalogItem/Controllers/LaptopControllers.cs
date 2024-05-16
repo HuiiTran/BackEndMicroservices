@@ -5,6 +5,7 @@ using MassTransit;
 using MassTransit.Initializers;
 using Microsoft.AspNetCore.Mvc;
 using ServicesCommon;
+using System.Collections.ObjectModel;
 
 namespace CatalogItem.Controllers
 {
@@ -22,6 +23,18 @@ namespace CatalogItem.Controllers
             this.publishEndpoint = publishEndpoint;
     }
 
+        /*[HttpGet("/Search")]
+        public async Task<ActionResult<IEnumerable<Laptop>>> Search(string? Classify, string? Name)
+        {
+            try
+            {
+                var result = Collection<Laptop>.
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }*/
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LaptopDto>>> GetAsync()
         {
@@ -40,6 +53,8 @@ namespace CatalogItem.Controllers
             }
             return laptop.AsDto();
         }
+
+        
 
         [HttpPost]
         public async Task<ActionResult<LaptopDto>> PostAsync([FromForm]CreateLaptopDto createLaptopDto)
