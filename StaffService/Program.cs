@@ -1,3 +1,4 @@
+using ServicesCommon.MassTransit;
 using ServicesCommon.MongoDB;
 using StaffService.Entities;
 
@@ -8,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddMongo()
-    .AddMongoRepository<Staff>("Staff");
+    .AddMongoRepository<Staff>("Staff")
+    .AddMassTransitWithRabbitMq();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
