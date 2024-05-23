@@ -77,6 +77,29 @@ namespace Cart.Controllers
             }
             return Ok();
         }
+
+        [HttpPut]
+        public async Task<ActionResult> PutAsync(GrantItemDto grantItemDto)
+        {
+            var cartItem = await _cartitemsRepository.GetAsync(item =>
+                item.UserId == grantItemDto.UserId && item.CatalogLaptopId == grantItemDto.CatalogLaptopId);
+
+            if (cartItem == null)
+            {
+                return NotFound();
+            }
+            else if (cartItem.Quantity > 0)
+            {
+                cartItem.Quantity -= grantItemDto.Quantity;
+                await _cartitemsRepository.UpdateAsync(cartItem);
+            }
+
+            if (cartItem.Quantity <= 0)
+            {
+                await _cartitemsRepository.RemoveAsync(cartItem.Id);
+            }
+            return Ok();
+        }
         [HttpDelete]
         public async Task<ActionResult> DeleteAsync(GrantItemDto grantItemDto)
         {
@@ -87,16 +110,9 @@ namespace Cart.Controllers
             {
                 return NotFound();
             }
-            else if(cartItem.Quantity > 0)
-            {
-                cartItem.Quantity -= grantItemDto.Quantity;
-                await _cartitemsRepository.UpdateAsync(cartItem);
-            }
+            
+            await _cartitemsRepository.RemoveAsync(cartItem.Id);
 
-            if (cartItem.Quantity <= 0)
-            {
-                await _cartitemsRepository.RemoveAsync(cartItem.Id);
-            }
             return Ok();
         }
     }
