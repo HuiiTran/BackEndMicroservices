@@ -7,7 +7,7 @@ namespace AuthService.Consumer.UserConsumer
 {
     public class UserCreateConsumer : IConsumer<UserCreated>
     {
-        public readonly IRepository<AllUser> repository;
+        private readonly IRepository<AllUser> repository;
 
         public UserCreateConsumer(IRepository<AllUser> repository)
         {

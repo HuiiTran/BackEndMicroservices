@@ -7,7 +7,7 @@ namespace AuthService.Consumer.AdminConsumer
 {
     public class AdminCreateConsumer : IConsumer<AdminCreated>
     {
-        public readonly IRepository<AllUser> repository;
+        private readonly IRepository<AllUser> repository;
 
         public AdminCreateConsumer(IRepository<AllUser> repository)
         {
