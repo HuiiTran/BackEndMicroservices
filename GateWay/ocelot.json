@@ -1,5 +1,18 @@
 {
   "Routes": [
+    //Authen
+    {
+      "DownstreamPathTemplate": "/authen",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7049
+        }
+      ],
+      "UpstreamPathTemplate": "/authen",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
     {
       "DownstreamPathTemplate": "/laptops",
       "DownstreamScheme": "https",
@@ -10,7 +23,11 @@
         }
       ],
       "UpstreamPathTemplate": "/catalog-gateway/items",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/laptops/{id}",
@@ -22,7 +39,11 @@
         }
       ],
       "UpstreamPathTemplate": "/catalog-gateway/items/{id}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/cart",
@@ -34,7 +55,7 @@
         }
       ],
       "UpstreamPathTemplate": "/inventory-gateway/cart",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete" ]
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     }
   ],
   "GlobalConfiguration": {

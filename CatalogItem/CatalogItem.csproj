@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="CatalogLaptopContract" Version="1.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.5" />
     <PackageReference Include="ServicesCommon" Version="1.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>

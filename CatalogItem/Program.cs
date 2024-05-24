@@ -1,9 +1,30 @@
 using CatalogItem.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using ServicesCommon.MassTransit;
 using ServicesCommon.MongoDB;
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+using System.Text;
+
 var builder = WebApplication.CreateBuilder(args);
 
+var key = Encoding.ASCII.GetBytes("This is key is my test private key");
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuerSigningKey = true,
+            ValidateIssuer = false,
+            ValidateAudience = false,
+        };
+    });
 
 builder.Services.AddCors(options =>
 {
@@ -36,6 +57,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseCors();
 app.UseAuthorization();

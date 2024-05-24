@@ -3,14 +3,17 @@ using CatalogItem.Entities;
 using CatalogLaptopContract;
 using MassTransit;
 using MassTransit.Initializers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServicesCommon;
 using System.Collections.ObjectModel;
 
 namespace CatalogItem.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("laptops")]
+    
     public class LaptopControllers : ControllerBase
     {
         private readonly IRepository<Laptop> laptopRepository;
@@ -35,7 +38,9 @@ namespace CatalogItem.Controllers
                 return BadRequest(ex.Message);
             }
         }*/
+        [Authorize]
         [HttpGet]
+        
         public async Task<ActionResult<IEnumerable<LaptopDto>>> GetAsync()
         {
             var laptops = (await laptopRepository.GetAllAsync())
