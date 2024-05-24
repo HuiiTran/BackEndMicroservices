@@ -38,7 +38,7 @@ namespace CatalogItem.Controllers
                 return BadRequest(ex.Message);
             }
         }*/
-        [Authorize]
+
         [HttpGet]
         
         public async Task<ActionResult<IEnumerable<LaptopDto>>> GetAsync()

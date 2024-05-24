@@ -1,5 +1,7 @@
-﻿using AdminService.Dto;
+﻿using AdminContract;
+using AdminService.Dto;
 using AdminService.Entities;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using ServicesCommon;
 
@@ -11,10 +13,12 @@ namespace AdminService.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IRepository<Admin> adminRepository;
+        private readonly IPublishEndpoint publishEndpoint;
 
-        public AdminController(IRepository<Admin> adminRepository)
+        public AdminController(IRepository<Admin> adminRepository, IPublishEndpoint publishEndpoint)
         {
             this.adminRepository = adminRepository;
+            this.publishEndpoint = publishEndpoint;
         }
 
         [HttpGet]
@@ -64,6 +68,8 @@ namespace AdminService.Controllers
 
             await adminRepository.CreateAsync(admin);
 
+            await publishEndpoint.Publish(new AdminCreated(admin.Id, admin.UserName, admin.PassWord, admin.Role));
+
             return Ok(admin);
         }
 
@@ -95,7 +101,23 @@ namespace AdminService.Controllers
 
             await adminRepository.UpdateAsync(existingAdmin);
 
+            await publishEndpoint.Publish(new AdminUpdated(existingAdmin.Id, existingAdmin.UserName, existingAdmin.PassWord, existingAdmin.Role));
+
             return Ok(existingAdmin);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            var existingAdmin = await adminRepository.GetAsync(id);
+            if (existingAdmin == null)
+                return NotFound();
+
+            await adminRepository.RemoveAsync(existingAdmin.Id);
+
+            await publishEndpoint.Publish(new AdminDeleted(existingAdmin.Id));
+
+            return NoContent();
         }
     }
 }
