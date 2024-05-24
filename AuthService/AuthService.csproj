@@ -16,4 +16,8 @@
     <PackageReference Include="UserContract" Version="1.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JWTAuthenManager\JWTAuthenManager.csproj" />
+  </ItemGroup>
+
 </Project>
