@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Amazon.Runtime.Internal.Transform;
+using MassTransit;
+using Microsoft.AspNetCore.Mvc;
 using ServicesCommon;
+using StaffContract;
 using StaffService.Dto;
 using StaffService.Entities;
 
@@ -10,10 +13,12 @@ namespace StaffService.Controllers
     public class StaffController : ControllerBase
     {
         private readonly IRepository<Staff> staffRepository;
+        private readonly IPublishEndpoint publishEndpoint;
 
-        public StaffController(IRepository<Staff> staffRepository)
+        public StaffController(IRepository<Staff> staffRepository, IPublishEndpoint publishEndpoint)
         {
             this.staffRepository = staffRepository;
+            this.publishEndpoint = publishEndpoint;
         }
 
         [HttpGet]
@@ -63,6 +68,8 @@ namespace StaffService.Controllers
             }
             await staffRepository.CreateAsync(staff);
 
+            await publishEndpoint.Publish(new StaffCreated(staff.Id, staff.UserName, staff.PassWord, staff.Role));
+
             return Ok(staff);
         }
 
@@ -93,6 +100,25 @@ namespace StaffService.Controllers
             }
 
             await staffRepository.UpdateAsync(existingStaff);
+
+            await publishEndpoint.Publish(new StaffUpdated(existingStaff.Id, existingStaff.UserName, existingStaff.PassWord, existingStaff.Role));
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            var existingStaff = await staffRepository.GetAsync(id);
+
+            if (existingStaff == null)
+            {
+                return NotFound();
+            }
+
+            await staffRepository.RemoveAsync(existingStaff.Id);
+
+            await publishEndpoint.Publish(new StaffDeleted(existingStaff.Id));
 
             return NoContent();
         }
