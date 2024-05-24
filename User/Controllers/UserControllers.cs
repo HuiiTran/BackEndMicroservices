@@ -1,10 +1,12 @@
-﻿using MassTransit.Initializers;
+﻿using MassTransit;
+using MassTransit.Initializers;
 using Microsoft.AspNetCore.Mvc;
 using ServicesCommon;
 using System.Net;
 using System.Xml.Linq;
 using User.Dtos;
 using User.Entities;
+using UserContract;
 
 namespace User.Controllers
 {
@@ -13,10 +15,12 @@ namespace User.Controllers
     public class UserControllers : ControllerBase
     {
         private readonly IRepository<Users> UserRepository;
+        private readonly IPublishEndpoint publishEndpoint;
 
-        public UserControllers(IRepository<Users> UserRepository)
+        public UserControllers(IRepository<Users> UserRepository, IPublishEndpoint publishEndpoint)
         {
             this.UserRepository = UserRepository;
+            this.publishEndpoint = publishEndpoint;
         }
 
         [HttpGet]
@@ -63,6 +67,8 @@ namespace User.Controllers
             }
             await UserRepository.CreateAsync(user);
 
+            await publishEndpoint.Publish(new UserCreated(user.Id, user.UserName, user.PassWord, user.Role));
+
             return Ok(user);
         }
 
@@ -96,6 +102,9 @@ namespace User.Controllers
 
             await UserRepository.UpdateAsync(existingUser);
 
+            await publishEndpoint.Publish(new UserUpdated(existingUser.Id, existingUser.UserName, existingUser.PassWord, existingUser.Role));
+
+
             return NoContent();
         }
 
@@ -109,6 +118,9 @@ namespace User.Controllers
                 return NotFound();
             }
             await UserRepository.RemoveAsync(id);
+
+            await publishEndpoint.Publish(new UserDeleted(user.Id));
+
 
             return NoContent();
         }

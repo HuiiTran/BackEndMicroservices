@@ -20,7 +20,7 @@ namespace AuthService.Consumer.StaffConsumer
 
             var allUser = await repository.GetAsync(message.Id);
 
-            if (allUser == null)
+            if (allUser != null)
             {
                 return;
             }
