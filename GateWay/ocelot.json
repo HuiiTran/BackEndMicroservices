@@ -11,7 +11,7 @@
         }
       ],
       "UpstreamPathTemplate": "/authen",
-      "UpstreamHttpMethod": [ "Get", "Post" ]
+      "UpstreamHttpMethod": [ "Post" ]
     },
     {
       "DownstreamPathTemplate": "/laptops",
