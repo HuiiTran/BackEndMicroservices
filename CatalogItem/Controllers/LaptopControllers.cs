@@ -4,13 +4,14 @@ using CatalogLaptopContract;
 using MassTransit;
 using MassTransit.Initializers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ServicesCommon;
 using System.Collections.ObjectModel;
 
 namespace CatalogItem.Controllers
 {
-    [Authorize]
+    
     [ApiController]
     [Route("laptops")]
     
@@ -40,7 +41,7 @@ namespace CatalogItem.Controllers
         }*/
 
         [HttpGet]
-        
+        [Authorize]
         public async Task<ActionResult<IEnumerable<LaptopDto>>> GetAsync()
         {
             var laptops = (await laptopRepository.GetAllAsync())
@@ -49,6 +50,7 @@ namespace CatalogItem.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<LaptopDto>> GetByIdAsync(Guid id)
         {
             var laptop = await laptopRepository.GetAsync(id);
@@ -62,6 +64,7 @@ namespace CatalogItem.Controllers
         
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Staff")]
         public async Task<ActionResult<LaptopDto>> PostAsync([FromForm]CreateLaptopDto createLaptopDto)
         {
             List<string> tempImage = new List<string>();
