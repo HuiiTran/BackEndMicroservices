@@ -52,9 +52,10 @@ namespace JWTAuthenManager
             var tokenKey = Encoding.ASCII.GetBytes(JWT_SECURITY_KEY);
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
             {
-                new Claim(ClaimTypes.Sid, userAccount.Id.ToString()),
+//                new Claim(ClaimTypes.Sid, userAccount.Id.ToString()),
+                new Claim("Id", userAccount.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Name, authenticationRequest.UserName ),
-                new Claim(ClaimTypes.Role, userAccount.Role),
+                new Claim("Role", userAccount.Role),
 
             });
 
@@ -79,6 +80,7 @@ namespace JWTAuthenManager
             {
                 Id = userAccount.Id,
                 UserName = userAccount.UserName,
+                Role = userAccount.Role,
                 ExpireIn = (int)tokenExpiryTimeSamp.Subtract(DateTime.Now).TotalSeconds,
                 JwtToken = token,
             };
