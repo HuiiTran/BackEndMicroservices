@@ -17,6 +17,96 @@ namespace Bill.Controllers
             this.BillRepository = BillRepository;
             this.CatalogItemRepository = CatalogItemRepository;
         }
+        [HttpGet("{billId}")]
+        public async Task<ActionResult<IEnumerable<BillItemDto>>> GetBillById(Guid billId)
+        {
+
+            var billEntites = await BillRepository.GetAllAsync(bill => bill.Id == billId);
+
+            var itemIds = billEntites.Select(itemlist => itemlist.CatalogItemId);
+            // var eachItems = itemIds.FirstOrDefault();
+
+            /*var quantities = billEntites.Select(quantity => quantity.Quantity);
+            var eachQuantities = quantities.FirstOrDefault();
+*/
+            //var catalogItemEntites = await CatalogItemRepository.GetAllAsync(filter: item => eachItems.Contains(item.Id));
+
+            IEnumerable<Task<BillItemDto>>? billDto = null;
+
+
+            billDto = billEntites.Select(async billItem =>
+            {
+                List<CatalogItem> catalogItems = new List<CatalogItem>();
+
+                foreach (var eachItems in itemIds)
+                {
+
+                    var catalogItemEntites = await CatalogItemRepository.GetAllAsync(item => eachItems.Contains(item.Id));
+                    //catalogItems =  new List<CatalogItem>(); 
+
+                    for (int i = 0; i < eachItems?.Count(); i++)
+                    {
+                        try
+                        {
+                            var catalogItem = catalogItemEntites.Single(catalogItem => catalogItem.Id == billItem.CatalogItemId[i]);
+                            catalogItems.Add(catalogItem);
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                }
+                return billItem.AsDto(catalogItems);
+            });
+            return Ok(billDto);
+
+        }
+        [HttpGet("all")]
+        public async Task<ActionResult<IEnumerable<BillItemDto>>> GetAllAsync()
+        {
+
+            var billEntites = await BillRepository.GetAllAsync();
+
+            var itemIds = billEntites.Select(itemlist => itemlist.CatalogItemId);
+            // var eachItems = itemIds.FirstOrDefault();
+
+            /*var quantities = billEntites.Select(quantity => quantity.Quantity);
+            var eachQuantities = quantities.FirstOrDefault();
+*/
+            //var catalogItemEntites = await CatalogItemRepository.GetAllAsync(filter: item => eachItems.Contains(item.Id));
+
+            IEnumerable<Task<BillItemDto>>? billDto = null;
+
+
+            billDto = billEntites.Select(async billItem =>
+            {
+                List<CatalogItem> catalogItems = new List<CatalogItem>();
+
+                foreach (var eachItems in itemIds)
+                {
+
+                    var catalogItemEntites = await CatalogItemRepository.GetAllAsync(item => eachItems.Contains(item.Id));
+                    //catalogItems =  new List<CatalogItem>(); 
+
+                    for (int i = 0; i < eachItems?.Count(); i++)
+                    {
+                        try
+                        {
+                            var catalogItem = catalogItemEntites.Single(catalogItem => catalogItem.Id == billItem.CatalogItemId[i]);
+                            catalogItems.Add(catalogItem);
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                }
+                return billItem.AsDto(catalogItems);
+            });
+            return Ok(billDto);
+
+        }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BillItemDto>>> GetAsync(Guid userId)
@@ -41,14 +131,13 @@ namespace Bill.Controllers
 
                 billDto = billEntites.Select(async billItem =>
                 {
-                    int count = 0;
-                    List<CatalogItem> catalogItems = null;
+                    List<CatalogItem> catalogItems = new List<CatalogItem>();
 
                     foreach (var eachItems in itemIds)
                     {
 
                         var catalogItemEntites = await CatalogItemRepository.GetAllAsync(item => eachItems.Contains(item.Id));
-                        catalogItems =  new List<CatalogItem>(); 
+                        //catalogItems =  new List<CatalogItem>(); 
 
                         for (int i = 0; i < eachItems?.Count(); i++)
                         {
@@ -96,6 +185,7 @@ namespace Bill.Controllers
                         CatalogItemId = grantItemDto.CatalogItemId,
                         Quantity = grantItemDto.Quantity,
                         CreatedDate = DateTimeOffset.Now,
+                        State = grantItemDto.State,
                     };
 
                     for (int i = 0; i < grantItemDto.Quantity.Count; i++)
@@ -134,8 +224,8 @@ namespace Bill.Controllers
                 return NotFound();
             }
 
-            
-            existingBill.CatalogItemId = updateBillDto.CatalogItemId;
+            existingBill.State = updateBillDto.State;
+            /*existingBill.CatalogItemId = updateBillDto.CatalogItemId;
             existingBill.Quantity = updateBillDto.Quantity;
 
             for (int i = 0; i < existingBill.CatalogItemId.Count(); i++)
@@ -143,7 +233,7 @@ namespace Bill.Controllers
                 var catalogItemEntites = await CatalogItemRepository.GetAsync(existingBill.CatalogItemId[i]);
                 existingBill.TotalPrice += catalogItemEntites.Price * existingBill.Quantity[i];
             }
-            existingBill.CreatedDate = DateTimeOffset.Now;
+            existingBill.CreatedDate = DateTimeOffset.Now;*/
             await BillRepository.UpdateAsync(existingBill);
 
             return NoContent();

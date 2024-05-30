@@ -13,6 +13,16 @@ IConfiguration configuration = new ConfigurationBuilder()
     .Build();
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+        });
+});
 
 var key = Encoding.ASCII.GetBytes("This is key is my test private key");
 builder.Services.AddAuthentication(options =>
@@ -48,11 +58,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseOcelot();
-
+app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();

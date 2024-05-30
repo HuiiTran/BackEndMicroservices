@@ -55,6 +55,7 @@ namespace User.Controllers
                 Name = createUserDto.Name,
                 PhoneNumber = createUserDto.PhoneNumber,
             };
+           // Console.WriteLine(createUserDto.Image);
             if (createUserDto.Image != null)
             {
                 MemoryStream memoryStream = new MemoryStream();

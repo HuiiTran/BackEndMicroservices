@@ -48,6 +48,106 @@
       ],
       "UpstreamPathTemplate": "/inventory-gateway/cart",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    //admin
+    {
+      "DownstreamPathTemplate": "/admin",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7056
+        }
+      ],
+      "UpstreamPathTemplate": "/admin",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/admin/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7056
+        }
+      ],
+      "UpstreamPathTemplate": "/admin/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
+    },
+    //staff
+    {
+      "DownstreamPathTemplate": "/staff",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7014
+        }
+      ],
+      "UpstreamPathTemplate": "/staff",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/staff/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7014
+        }
+      ],
+      "UpstreamPathTemplate": "/staff/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
+    },
+    //user
+    {
+      "DownstreamPathTemplate": "/users",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7189
+        }
+      ],
+      "UpstreamPathTemplate": "/users",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/users/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7189
+        }
+      ],
+      "UpstreamPathTemplate": "/users/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
+    },
+    //bill a.k.a order
+    {
+      "DownstreamPathTemplate": "/bill",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7189
+        }
+      ],
+      "UpstreamPathTemplate": "/users",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/users/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7189
+        }
+      ],
+      "UpstreamPathTemplate": "/users/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
     }
   ],
   "GlobalConfiguration": {

@@ -41,7 +41,7 @@ namespace CatalogItem.Controllers
         }*/
 
         [HttpGet]
-        [Authorize]
+       // [Authorize]
         public async Task<ActionResult<IEnumerable<LaptopDto>>> GetAsync()
         {
             var laptops = (await laptopRepository.GetAllAsync())
@@ -50,7 +50,7 @@ namespace CatalogItem.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<LaptopDto>> GetByIdAsync(Guid id)
         {
             var laptop = await laptopRepository.GetAsync(id);
@@ -64,7 +64,7 @@ namespace CatalogItem.Controllers
         
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Staff")]
+        //[Authorize(Roles = "Admin, Staff")]
         public async Task<ActionResult<LaptopDto>> PostAsync([FromForm]CreateLaptopDto createLaptopDto)
         {
             List<string> tempImage = new List<string>();

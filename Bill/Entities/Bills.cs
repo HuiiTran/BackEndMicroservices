@@ -14,6 +14,8 @@ namespace Bill.Entities
 
         public decimal TotalPrice { get; set; }
 
+        public string State { get; set; }
+
         public DateTimeOffset CreatedDate { get; set; }
     }
 }
