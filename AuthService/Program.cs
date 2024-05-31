@@ -1,6 +1,8 @@
-using AuthService.Entities;
+﻿using AuthService.Entities;
 using JWTAuthenManager;
 using MassTransit;
+using Serilog;
+using Serilog.Formatting.Json;
 using ServicesCommon.MassTransit;
 using ServicesCommon.MongoDB;
 
@@ -19,6 +21,16 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader();
         });
 });
+builder.Host.UseSerilog((ctx, config) =>
+{
+    config.WriteTo.Console().MinimumLevel.Information();
+    config.WriteTo.File(
+        path: "D:\\Bài làm các môn\\Mẫu thiết kế\\BackEnd\\Logs\\Authen\\AuthenLog-.txt",
+        rollingInterval: RollingInterval.Day,
+        rollOnFileSizeLimit: true,
+        formatter: new JsonFormatter()).MinimumLevel.Information();
+});
+
 
 builder.Services.AddMongo()
     .AddMongoRepository<AllUser>("AllUser")
@@ -39,6 +51,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.MapHealthChecks("health");
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
