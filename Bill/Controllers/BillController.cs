@@ -1,7 +1,9 @@
 ﻿using Bill.Dto;
 using Bill.Entities;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using ServicesCommon;
+using BillUpdateCatalogItem;
 
 namespace Bill.Controllers
 {
@@ -11,12 +13,14 @@ namespace Bill.Controllers
     {
         private readonly IRepository<Bills> BillRepository;
         private readonly IRepository<CatalogItem> CatalogItemRepository;
+        private readonly IPublishEndpoint publishEndpoint;
 
-        public BillController(IRepository<Bills> BillRepository, IRepository<CatalogItem> CatalogItemRepository)
+        public BillController(IRepository<Bills> BillRepository, IRepository<CatalogItem> CatalogItemRepository, IPublishEndpoint publishEndpoint)
         {
             this.BillRepository = BillRepository;
             this.CatalogItemRepository = CatalogItemRepository;
-        }
+            this.publishEndpoint = publishEndpoint;
+    }
         [HttpGet("{billId}")]
         public async Task<ActionResult<IEnumerable<BillItemDto>>> GetBillById(Guid billId)
         {
@@ -193,6 +197,7 @@ namespace Bill.Controllers
                         var existingCatalogItem = await CatalogItemRepository.GetAsync(grantItemDto.CatalogItemId[i]);
                         existingCatalogItem.Quantity -= grantItemDto.Quantity[i];
                         await CatalogItemRepository.UpdateAsync(existingCatalogItem);
+                        await publishEndpoint.Publish(new BillCatalogItemUpdated(existingCatalogItem.Id, existingCatalogItem.Quantity));
                     }
 
                     for (int i = 0; i < billItems.CatalogItemId.Count(); i++)
@@ -222,6 +227,26 @@ namespace Bill.Controllers
             if(existingBill == null)
             {
                 return NotFound();
+            }
+            for (int i = 0; i < existingBill.Quantity.Count; i++)
+            {
+                var existingCatalogItem = await CatalogItemRepository.GetAsync(existingBill.CatalogItemId[i]);
+                if(existingBill.State != "Cancel" && updateBillDto.State == "Cancel")
+                {
+                    existingCatalogItem.Quantity += existingBill.Quantity[i];
+                    await CatalogItemRepository.UpdateAsync(existingCatalogItem);
+                    await publishEndpoint.Publish(new BillCatalogItemUpdated(existingCatalogItem.Id, existingCatalogItem.Quantity));
+                }
+                else if (existingBill.State != "Cancel" && updateBillDto.State != "Cancel")
+                {
+                   
+                }
+                else if (existingBill.State == "Cancel" && updateBillDto.State != "Cancel")
+                {
+                    existingCatalogItem.Quantity -= existingBill.Quantity[i];
+                    await CatalogItemRepository.UpdateAsync(existingCatalogItem);
+                    await publishEndpoint.Publish(new BillCatalogItemUpdated(existingCatalogItem.Id, existingCatalogItem.Quantity));
+                }
             }
 
             existingBill.State = updateBillDto.State;

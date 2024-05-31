@@ -131,22 +131,22 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7189
+          "Port": 7043
         }
       ],
-      "UpstreamPathTemplate": "/users",
+      "UpstreamPathTemplate": "/bill",
       "UpstreamHttpMethod": [ "Get", "Post" ]
     },
     {
-      "DownstreamPathTemplate": "/users/{id}",
+      "DownstreamPathTemplate": "/bill/{billId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7189
+          "Port": 7043
         }
       ],
-      "UpstreamPathTemplate": "/users/{id}",
+      "UpstreamPathTemplate": "/bill/{billId}",
       "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
     }
   ],
