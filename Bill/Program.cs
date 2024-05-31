@@ -1,4 +1,6 @@
-using Bill.Entities;
+﻿using Bill.Entities;
+using Serilog;
+using Serilog.Formatting.Json;
 using ServicesCommon.MassTransit;
 using ServicesCommon.MongoDB;
 
@@ -9,6 +11,17 @@ builder.Services.AddMongo()
     .AddMongoRepository<Bills>("Bills")
     .AddMongoRepository<CatalogItem>("CatalogItem")
     .AddMassTransitWithRabbitMq();
+
+builder.Host.UseSerilog((ctx, config) =>
+{
+    config.WriteTo.Console().MinimumLevel.Information();
+    config.WriteTo.File(
+        path: "D:\\Bài làm các môn\\Mẫu thiết kế\\BackEnd\\Logs\\Bill\\BillLog-.txt",
+        rollingInterval: RollingInterval.Day,
+        rollOnFileSizeLimit: true,
+        formatter: new JsonFormatter()).MinimumLevel.Information();
+});
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -23,6 +36,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.MapHealthChecks("health");
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
