@@ -77,7 +77,7 @@ namespace AdminService.Controllers
         public async Task<IActionResult> PutAsync(Guid id, [FromForm] UpdateAdminDto updateAdminDto)
         {
             var existingAdmin = await adminRepository.GetAsync(id);
-
+            var existingImage = existingAdmin.Image;
             if (existingAdmin == null)
             {
                 return NotFound();
@@ -96,7 +96,7 @@ namespace AdminService.Controllers
             }
             else
             {
-                existingAdmin.Image = " ";
+                existingAdmin.Image = existingImage;
             }
 
             await adminRepository.UpdateAsync(existingAdmin);

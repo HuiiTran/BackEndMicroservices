@@ -77,7 +77,7 @@ namespace User.Controllers
         public async Task<IActionResult> PutAsync(Guid id,[FromForm] UpdateUserDto updateUserDto)
         {
             var existingUser = await UserRepository.GetAsync(id);
-
+            var existingImage = existingUser.Image;
             if (existingUser == null)
             {
                 return NotFound();
@@ -97,7 +97,7 @@ namespace User.Controllers
             }
             else
             {
-                existingUser.Image = " ";
+                existingUser.Image = existingImage;
             }
 
 

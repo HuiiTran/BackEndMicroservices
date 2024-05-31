@@ -6,7 +6,7 @@ namespace CatalogItem.Dtos
 
     public record CreateLaptopDto([Required]string Name, [Required]string StoreID, string Classify, string Description, decimal Price, int Quantity, Boolean isAvailable, List<IFormFile> Image);
 
-    public record UpdateLaptopDto([Required]string Name, [Required]string StoreID, string Classify, string Description, decimal Price, int Quantity, Boolean isAvailable, List<IFormFile> Image);
+    public record UpdateLaptopDto([Required]string Name, [Required]string StoreID, string Classify, string Description, decimal Price, int Quantity, Boolean isAvailable, List<IFormFile>? Image);
 
 }
 

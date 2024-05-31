@@ -101,7 +101,8 @@ namespace CatalogItem.Controllers
         public async Task<IActionResult> PutAsync(Guid id, [FromForm] UpdateLaptopDto updateLaptopDto)
         {
             var existingLatop = await laptopRepository.GetAsync(id);
-            List<string> tempImage = new List<string>();
+            List<string>? tempImage = new List<string>();
+            var existingImage = existingLatop.Image;
             if (existingLatop == null)
             {
                 return NotFound();
@@ -114,16 +115,24 @@ namespace CatalogItem.Controllers
             existingLatop.Quantity = updateLaptopDto.Quantity;
             existingLatop.isAvailable = updateLaptopDto.isAvailable;
             existingLatop.Classify = updateLaptopDto.Classify;
-            foreach (var image in updateLaptopDto.Image)
+            if(updateLaptopDto.Image  != null)
             {
-                if (image != null)
+                foreach (var image in updateLaptopDto.Image)
                 {
-                    MemoryStream memoryStream = new MemoryStream();
-                    image.OpenReadStream().CopyTo(memoryStream);
-                    tempImage.Add(Convert.ToBase64String(memoryStream.ToArray()));
+                    if (image != null)
+                    {
+                        MemoryStream memoryStream = new MemoryStream();
+                        image.OpenReadStream().CopyTo(memoryStream);
+                        tempImage.Add(Convert.ToBase64String(memoryStream.ToArray()));
+                        existingLatop.Image = tempImage;
+                    }
                 }
             }
-            existingLatop.Image = tempImage;
+            else
+            {
+                existingLatop.Image = existingImage;
+            }
+            
             await laptopRepository.UpdateAsync(existingLatop);
 
             await publishEndpoint.Publish(new CatalogLaptopUpdated(existingLatop.Id, existingLatop.StoreID,existingLatop.Name, existingLatop.Description,existingLatop.Price,existingLatop.Quantity,existingLatop.isAvailable ,existingLatop.Image));

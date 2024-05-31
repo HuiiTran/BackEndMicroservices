@@ -55,6 +55,7 @@ namespace StaffService.Controllers
                 Address = createStaffDto.Address,
                 Name = createStaffDto.Name,
                 PhoneNumber = createStaffDto.PhoneNumber,
+                Salary = createStaffDto.Salary,
             };
             if (createStaffDto.Image != null)
             {
@@ -77,7 +78,7 @@ namespace StaffService.Controllers
         public async Task<IActionResult> PutAsync(Guid id, [FromForm] UpdateStaffDto updateStaffDto)
         {
             var existingStaff = await staffRepository.GetAsync(id);
-
+            var existingImage = existingStaff.Image;
             if (existingStaff == null)
             {
                 return NotFound();
@@ -96,9 +97,9 @@ namespace StaffService.Controllers
             }
             else
             {
-                existingStaff.Image = " ";
+                existingStaff.Image = existingImage;
             }
-
+            existingStaff.Salary = updateStaffDto.Salary;
             await staffRepository.UpdateAsync(existingStaff);
 
             await publishEndpoint.Publish(new StaffUpdated(existingStaff.Id, existingStaff.UserName, existingStaff.PassWord, existingStaff.Role));

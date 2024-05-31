@@ -20,6 +20,6 @@ namespace CatalogItem.Entities
 
         public Boolean isAvailable { get; set; }
 
-        public List<string> Image {  get; set; } = new List<string>();
+        public List<string>? Image {  get; set; }
     }
 }
