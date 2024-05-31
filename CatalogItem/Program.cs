@@ -1,7 +1,9 @@
-using CatalogItem.Entities;
+﻿using CatalogItem.Entities;
 using JWTAuthenManager;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using Serilog.Formatting.Json;
 using ServicesCommon.MassTransit;
 using ServicesCommon.MongoDB;
 using System.Text;
@@ -9,7 +11,15 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Host.UseSerilog((ctx, config) =>
+{
+    config.WriteTo.Console().MinimumLevel.Information();
+    config.WriteTo.File(
+        path: "D:\\Bài làm các môn\\Mẫu thiết kế\\BackEnd\\Logs\\Product\\ProductLog-.txt",
+        rollingInterval: RollingInterval.Day,
+        rollOnFileSizeLimit: true,
+        formatter: new JsonFormatter()).MinimumLevel.Information();
+});
 
 builder.Services.AddCors(options =>
 {
@@ -42,6 +52,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.MapHealthChecks("health");
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
