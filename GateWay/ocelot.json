@@ -14,6 +14,19 @@
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
+      "DownstreamPathTemplate": "/health",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7049
+        }
+      ],
+      "UpstreamPathTemplate": "/authenhealth",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    //Item
+    {
       "DownstreamPathTemplate": "/laptops",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -38,6 +51,19 @@
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
+      "DownstreamPathTemplate": "/health",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7133
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog-gatewayhealth",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    //Cart
+    {
       "DownstreamPathTemplate": "/cart",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -47,6 +73,18 @@
         }
       ],
       "UpstreamPathTemplate": "/inventory-gateway/cart",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/health",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7178
+        }
+      ],
+      "UpstreamPathTemplate": "/inventory-gatewayhealth",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     //admin
@@ -84,7 +122,7 @@
         }
       ],
       "UpstreamPathTemplate": "/adminhealth",
-      "UpstreamHttpMethod": [ "Get"]
+      "UpstreamHttpMethod": [ "Get" ]
     },
     //staff
     {
@@ -111,6 +149,18 @@
       "UpstreamPathTemplate": "/staff/{id}",
       "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
     },
+    {
+      "DownstreamPathTemplate": "/health",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7014
+        }
+      ],
+      "UpstreamPathTemplate": "/staffhealth",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
     //user
     {
       "DownstreamPathTemplate": "/users",
@@ -136,6 +186,18 @@
       "UpstreamPathTemplate": "/users/{id}",
       "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
     },
+    {
+      "DownstreamPathTemplate": "/health",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7189
+        }
+      ],
+      "UpstreamPathTemplate": "/usershealth",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
     //bill a.k.a order
     {
       "DownstreamPathTemplate": "/bill",
@@ -160,7 +222,20 @@
       ],
       "UpstreamPathTemplate": "/bill/{billId}",
       "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/health",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7043
+        }
+      ],
+      "UpstreamPathTemplate": "/billhealth",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
     }
+
   ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:7169"
