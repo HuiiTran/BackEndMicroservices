@@ -25,7 +25,7 @@ builder.Host.UseSerilog((ctx, config) =>
 {
     config.WriteTo.Console().MinimumLevel.Information();
     config.WriteTo.File(
-        path: "D:\\Bài làm các môn\\Mẫu thiết kế\\BackEnd\\Logs\\Authen\\AuthenLog-.txt",
+        path: "..\\Logs\\Authen\\AuthenLog-.txt",
         rollingInterval: RollingInterval.Day,
         rollOnFileSizeLimit: true,
         formatter: new JsonFormatter()).MinimumLevel.Information();

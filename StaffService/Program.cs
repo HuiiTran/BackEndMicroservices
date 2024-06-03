@@ -18,7 +18,7 @@ builder.Host.UseSerilog((ctx, config) =>
 {
     config.WriteTo.Console().MinimumLevel.Information();
     config.WriteTo.File(
-        path: "D:\\Bài làm các môn\\Mẫu thiết kế\\BackEnd\\Logs\\Staff\\StaffLog-.txt",
+        path: "..\\Logs\\Staff\\StaffLog-.txt",
         rollingInterval: RollingInterval.Day,
         rollOnFileSizeLimit: true,
         formatter: new JsonFormatter()).MinimumLevel.Information();
