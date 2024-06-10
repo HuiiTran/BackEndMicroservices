@@ -190,6 +190,8 @@ namespace Bill.Controllers
                         Quantity = grantItemDto.Quantity,
                         CreatedDate = DateTimeOffset.Now,
                         State = grantItemDto.State,
+                        Address = grantItemDto.Address,
+                        Phone = grantItemDto.Phone,
                     };
 
                     for (int i = 0; i < grantItemDto.Quantity.Count; i++)

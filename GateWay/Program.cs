@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 IConfiguration configuration = new ConfigurationBuilder()
-    .AddJsonFile("D:\\Bài làm các môn\\Mẫu thiết kế\\BackEnd\\GateWay\\ocelot.json")
+    .AddJsonFile("ocelot.json")
     .Build();
 
 

@@ -17,5 +17,9 @@ namespace Bill.Entities
         public string State { get; set; }
 
         public DateTimeOffset CreatedDate { get; set; }
+
+        public string Address { get; set; }
+
+        public string Phone { get; set; }
     }
 }

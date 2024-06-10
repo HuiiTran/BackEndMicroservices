@@ -46,6 +46,12 @@ namespace User.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> PostAsync( [FromForm]CreateUserDto createUserDto)
         {
+            var exstingUsers = await UserRepository.GetAllAsync();
+            foreach(var ex in exstingUsers)
+            {
+                if(ex.UserName == createUserDto.UserName)
+                    return BadRequest(ex.UserName);
+            }
             var user = new Users
             {
                 UserName = createUserDto.UserName,
