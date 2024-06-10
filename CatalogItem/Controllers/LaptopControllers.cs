@@ -77,7 +77,7 @@ namespace CatalogItem.Controllers
             laptop.Quantity = createLaptopDto.Quantity;
             laptop.isAvailable = createLaptopDto.isAvailable;
             laptop.Classify = createLaptopDto.Classify;
-
+            laptop.SoldQuantity = 0;
             foreach(var image in createLaptopDto.Image)
             {
                 if(image != null)

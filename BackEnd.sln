@@ -43,7 +43,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthJWT", "AuthJWT", "{38A8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JWTAuthenManager", "JWTAuthenManager\JWTAuthenManager.csproj", "{E11F09A9-97B0-4C11-A952-EFF70D33233B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillUpdateCatalogItem", "BillUpdateCatalogItem\BillUpdateCatalogItem.csproj", "{371918C5-A0A6-4F92-9127-C68A79A2E512}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BillUpdateCatalogItem", "BillUpdateCatalogItem\BillUpdateCatalogItem.csproj", "{371918C5-A0A6-4F92-9127-C68A79A2E512}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoldQuantityUpdate", "SoldQuantityUpdate\SoldQuantityUpdate.csproj", "{2B56C6FD-6230-4547-8B3C-3BE55C51C12A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +121,10 @@ Global
 		{371918C5-A0A6-4F92-9127-C68A79A2E512}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{371918C5-A0A6-4F92-9127-C68A79A2E512}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{371918C5-A0A6-4F92-9127-C68A79A2E512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B56C6FD-6230-4547-8B3C-3BE55C51C12A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B56C6FD-6230-4547-8B3C-3BE55C51C12A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B56C6FD-6230-4547-8B3C-3BE55C51C12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B56C6FD-6230-4547-8B3C-3BE55C51C12A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,6 +147,7 @@ Global
 		{177C7010-5881-4BBE-9819-70A43F36AD42} = {3111203B-C479-4F7E-B84B-BFC3E64B5E57}
 		{E11F09A9-97B0-4C11-A952-EFF70D33233B} = {38A8D3C0-944E-4162-83CC-F01910511B7D}
 		{371918C5-A0A6-4F92-9127-C68A79A2E512} = {3111203B-C479-4F7E-B84B-BFC3E64B5E57}
+		{2B56C6FD-6230-4547-8B3C-3BE55C51C12A} = {3111203B-C479-4F7E-B84B-BFC3E64B5E57}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A182109-3F25-4ABC-AD78-4083ED3ED282}

@@ -4,6 +4,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using ServicesCommon;
 using BillUpdateCatalogItem;
+using SoldQuantityUpdate;
 
 namespace Bill.Controllers
 {
@@ -200,7 +201,8 @@ namespace Bill.Controllers
                         existingCatalogItem.Quantity -= grantItemDto.Quantity[i];
                         await CatalogItemRepository.UpdateAsync(existingCatalogItem);
                         await publishEndpoint.Publish(new BillCatalogItemUpdated(existingCatalogItem.Id, existingCatalogItem.Quantity));
-                    }
+                    await publishEndpoint.Publish(new UpdateSoldQuantity(existingCatalogItem.Id, (grantItemDto.Quantity[i])));
+                }
 
                     for (int i = 0; i < billItems.CatalogItemId.Count(); i++)
                     {
@@ -238,6 +240,7 @@ namespace Bill.Controllers
                     existingCatalogItem.Quantity += existingBill.Quantity[i];
                     await CatalogItemRepository.UpdateAsync(existingCatalogItem);
                     await publishEndpoint.Publish(new BillCatalogItemUpdated(existingCatalogItem.Id, existingCatalogItem.Quantity));
+                    await publishEndpoint.Publish(new UpdateSoldQuantity(existingCatalogItem.Id, -(existingBill.Quantity[i])));
                 }
                 else if (existingBill.State != "Cancel" && updateBillDto.State != "Cancel")
                 {
@@ -248,6 +251,8 @@ namespace Bill.Controllers
                     existingCatalogItem.Quantity -= existingBill.Quantity[i];
                     await CatalogItemRepository.UpdateAsync(existingCatalogItem);
                     await publishEndpoint.Publish(new BillCatalogItemUpdated(existingCatalogItem.Id, existingCatalogItem.Quantity));
+                    await publishEndpoint.Publish(new UpdateSoldQuantity(existingCatalogItem.Id, (existingBill.Quantity[i])));
+
                 }
             }
 

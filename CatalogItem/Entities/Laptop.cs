@@ -21,5 +21,7 @@ namespace CatalogItem.Entities
         public Boolean isAvailable { get; set; }
 
         public List<string>? Image {  get; set; }
+
+        public int SoldQuantity { get; set; }
     }
 }

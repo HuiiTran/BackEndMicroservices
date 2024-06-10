@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JWTAuthenManager\JWTAuthenManager.csproj" />
+    <ProjectReference Include="..\SoldQuantityUpdate\SoldQuantityUpdate.csproj" />
   </ItemGroup>
 	
 </Project>
